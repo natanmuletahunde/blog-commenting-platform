@@ -1,11 +1,15 @@
-import React from 'react'
+'use client';
 
-const ThemeCom = () => {
+import { useEffect, useState } from 'react';
+
+export default function ThemeCom({ children }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
-    <div>
-      ThemeCom 
+    <div className="bg-white text-gray-700 dark:text-gray-200 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      {children}
     </div>
-  )
+  );
 }
-
-export default ThemeCom

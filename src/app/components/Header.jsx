@@ -7,10 +7,11 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useTheme } from 'next-themes';
 
 const Header = () => {
   const path = usePathname();
-  const [theme, setTheme] = useState('light');
+  const { theme, setTheme } = useTheme(); // ✅ fixed here
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSubmit = (e) => {
@@ -74,29 +75,29 @@ const Header = () => {
           ))}
         </nav>
 
+        {/* Right Section - Buttons */}
         <div className="flex items-center gap-2">
 
+          {/* Mobile Search */}
           <Button variant="ghost" size="icon" className="md:hidden">
             <AiOutlineSearch className="text-lg" />
           </Button>
 
+          {/* Theme Toggle */}
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
           >
-            {theme === 'light' ? (
-              <FaSun className="text-yellow-400" />
-            ) : (
-              <FaMoon className="text-blue-400" />
-            )}
+            {theme === 'light' ? <FaSun /> : <FaMoon />}
           </Button>
+
+          {/* Sign In Button */}
           <Button
-            variant="gradientDuoTone"
             size="sm"
             className="relative overflow-hidden px-5 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 transition-all duration-300 shadow-md hover:shadow-xl"
           >
-            <span className="relative z-10">Sign in </span>
+            <span className="relative z-10">Sign in</span>
             <span className="absolute inset-0 opacity-0 hover:opacity-100 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 blur-md transition-opacity duration-500"></span>
           </Button>
         </div>
