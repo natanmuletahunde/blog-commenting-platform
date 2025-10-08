@@ -18,12 +18,10 @@ const Header = () => {
     e.preventDefault();
     console.log('Searching for:', searchTerm);
   };
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-3 md:py-4 gap-4">
 
-        {/* Left Section - Logo + Search */}
         <div className="flex items-center gap-6 w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl sm:text-2xl font-extrabold tracking-tight">
@@ -34,7 +32,6 @@ const Header = () => {
             </span>
           </Link>
 
-          {/* Search Input */}
           <form
             onSubmit={handleSubmit}
             className="hidden md:flex items-center relative w-64 lg:w-80"
@@ -50,7 +47,6 @@ const Header = () => {
           </form>
         </div>
 
-        {/* Center Section - Nav Links */}
         <nav className="hidden md:flex items-center justify-center gap-6 flex-1">
           {[
             { name: 'Home', href: '/' },
@@ -75,15 +71,12 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Right Section - Buttons */}
         <div className="flex items-center gap-2">
 
-          {/* Mobile Search */}
           <Button variant="ghost" size="icon" className="md:hidden">
             <AiOutlineSearch className="text-lg" />
           </Button>
 
-          {/* Theme Toggle */}
           <Button
             variant="ghost"
             size="icon"
@@ -92,7 +85,6 @@ const Header = () => {
             {theme === 'light' ? <FaSun /> : <FaMoon />}
           </Button>
 
-          {/* Sign In Button */}
           <Button
             size="sm"
             className="relative overflow-hidden px-5 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 transition-all duration-300 shadow-md hover:shadow-xl"
