@@ -8,20 +8,23 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTheme } from 'next-themes';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 
 const Header = () => {
   const path = usePathname();
-  const { theme, setTheme } = useTheme(); // ✅ fixed here
+  const { theme, setTheme } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Searching for:', searchTerm);
   };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-3 md:py-4 gap-4">
 
+        {/* LOGO + SEARCH */}
         <div className="flex items-center gap-6 w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl sm:text-2xl font-extrabold tracking-tight">
@@ -47,6 +50,7 @@ const Header = () => {
           </form>
         </div>
 
+        {/* NAV LINKS */}
         <nav className="hidden md:flex items-center justify-center gap-6 flex-1">
           {[
             { name: 'Home', href: '/' },
@@ -71,12 +75,14 @@ const Header = () => {
           ))}
         </nav>
 
+        {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2">
-
+          {/* Mobile Search Button */}
           <Button variant="ghost" size="icon" className="md:hidden">
             <AiOutlineSearch className="text-lg" />
           </Button>
 
+          {/* Theme Toggle */}
           <Button
             variant="ghost"
             size="icon"
@@ -85,13 +91,19 @@ const Header = () => {
             {theme === 'light' ? <FaSun /> : <FaMoon />}
           </Button>
 
-          <Button
-            size="sm"
-            className="relative overflow-hidden px-5 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 transition-all duration-300 shadow-md hover:shadow-xl"
-          >
-            <span className="relative z-10">Sign in</span>
-            <span className="absolute inset-0 opacity-0 hover:opacity-100 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 blur-md transition-opacity duration-500"></span>
-          </Button>
+          {/* Auth Buttons */}
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+
+          <SignedOut>
+            {/* ✅ Redirects to /sign-in page instead of modal */}
+            <SignInButton mode="redirect" redirectUrl="/sign-in">
+              <div className="px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold hover:opacity-90 transition">
+                Sign In
+              </div>
+            </SignInButton>
+          </SignedOut>
         </div>
       </div>
     </header>
