@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-      /* ✅ Compatibility */
       "target": "ES2017",
       "lib": ["dom", "dom.iterable", "esnext"],
       "allowJs": true,
@@ -8,22 +7,17 @@
       "strict": false,
       "noEmit": true,
       "incremental": true,
-
-      /* ✅ Module System */
       "module": "esnext",
       "esModuleInterop": true,
-      "moduleResolution": "node",
+      "moduleResolution": "bundler", 
       "resolveJsonModule": true,
       "isolatedModules": true,
       "jsx": "preserve",
-
-      /* ✅ Next.js Plugin */
       "plugins": [{ "name": "next" }],
-
-      /* ✅ Fix Deprecation Warning */
+  
       "ignoreDeprecations": "6.0",
-
-      /* ✅ Absolute Import Setup */
+  
+      // ✅ Keep your alias support
       "baseUrl": "src",
       "paths": {
         "@/*": ["*"]
@@ -35,9 +29,6 @@
       "**/*.ts",
       "**/*.tsx"
     ],
-    "exclude": [
-      "node_modules",
-      ".next"
-    ]
+    "exclude": ["node_modules", ".next"]
   }
   
