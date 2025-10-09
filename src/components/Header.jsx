@@ -29,7 +29,7 @@ const Header = () => {
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl sm:text-2xl font-extrabold tracking-tight">
               <span className="px-2 py-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-lg text-white shadow-md">
-                Sahand&apos;s
+                Piv Blog
               </span>{' '}
               Blog
             </span>
@@ -97,7 +97,6 @@ const Header = () => {
           </SignedIn>
 
           <SignedOut>
-            {/* ✅ Redirects to /sign-in page instead of modal */}
             <SignInButton mode="redirect" redirectUrl="/sign-in">
               <div className="px-4 py-2 rounded-md bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold hover:opacity-90 transition">
                 Sign In

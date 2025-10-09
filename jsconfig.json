@@ -1,8 +1,10 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "compilerOptions": {
+      "ignoreDeprecations": "6.0",
+      "baseUrl": "src",
+      "paths": {
+        "@/*": ["*"]
+      }
+    },
+    "exclude": ["node_modules", ".next"]
   }
-}

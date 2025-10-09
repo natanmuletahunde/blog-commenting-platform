@@ -1,35 +1,43 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "plugins": [
-      {
-        "name": "next"
+    "compilerOptions": {
+      /* ✅ Compatibility */
+      "target": "ES2017",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": false,
+      "noEmit": true,
+      "incremental": true,
+
+      /* ✅ Module System */
+      "module": "esnext",
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "preserve",
+
+      /* ✅ Next.js Plugin */
+      "plugins": [{ "name": "next" }],
+
+      /* ✅ Fix Deprecation Warning */
+      "ignoreDeprecations": "6.0",
+
+      /* ✅ Absolute Import Setup */
+      "baseUrl": "src",
+      "paths": {
+        "@/*": ["*"]
       }
+    },
+    "include": [
+      "next-env.d.ts",
+      ".next/types/**/*.ts",
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "exclude": [
+      "node_modules",
+      ".next"
     ]
-  },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
+  }
+  
