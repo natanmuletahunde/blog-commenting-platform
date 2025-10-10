@@ -4,22 +4,18 @@
 **Project:**  Blog + Commenting System
 **Week:** Oct 10 , 2025
 **Advisor:** Elias
-**live demo**: 
-** git repo**:
+**live demo**: (live)[https://blog-comment-platform-9tq9.vercel.app/]
+**git repo**:https://github.com/natanmuletahunde/blog-comment-platform.git
 
 ## what i accomplished this week 
 
-**Monday**
-- Planned and designed Artwork and Bid models in models.py, including UUID fields, choices, and relationships. 
-
-**Tuesday**
-- Implemented serializers in serializers.py for Artwork, Bid, and BidCreate, with validation for end_time and bid amounts.  
-
-**Wednesday**
-- Created views in views.py for CRUD operations on artworks and bids, including bid creation logic and permissions.
-
-**Thursday**
-- Set up URL patterns in urls.py for artworks and bids endpoints, and integrated with main URLs. 
-
-**Friday**
-- Tested API functionality 
+# Authentication
+Added Clerk for user sign in/out.
+Linked Clerk with MongoDB using webhooks
+# Database
+Synced Clerk users to database automatically.
+# Frontend
+Built header with theme switch, search, and auth buttons.
+Added responsive design and smooth animations.
+Used Shadcn UI and Tailwind for clean styling.
+Deployed successfully on Vercel.
