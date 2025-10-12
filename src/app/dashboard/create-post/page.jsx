@@ -39,7 +39,7 @@ export default function CreatePostPage() {
 
       const data = await res.json();
       if (data.imageUrl) {
-        setFormData(prev => ({ ...prev, image: data.imageUrl })); // triggers preview
+        setFormData(prev => ({ ...prev, image: data.imageUrl }));
         setImageUploadError(null);
       } else {
         setImageUploadError('Upload failed');
@@ -110,12 +110,17 @@ export default function CreatePostPage() {
             }
           />
 
+          {/* Updated Category Dropdown */}
           <Select
+            className="flex-1 cursor-pointer border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-400 focus:border-teal-400"
+            value={formData.category || 'uncategorized'}
             onChange={(e) =>
               setFormData(prev => ({ ...prev, category: e.target.value }))
             }
           >
-            <option value="uncategorized">Select a category</option>
+            <option value="uncategorized" disabled>
+              Select a category
+            </option>
             <option value="javascript">JavaScript</option>
             <option value="reactjs">React.js</option>
             <option value="nextjs">Next.js</option>
@@ -158,8 +163,12 @@ export default function CreatePostPage() {
           }
         />
 
-        <Button type="submit" variant="default" disabled={imageUploading}>
-          {imageUploading ? 'Uploading...' : 'Publish'}
+        <Button
+          type="submit"
+          className="bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold py-3 rounded-xl shadow-lg hover:from-blue-500 hover:to-teal-500 transition-all duration-300"
+          disabled={imageUploading}
+        >
+          {imageUploading ? 'Uploading Image...' : 'Publish Post'}
         </Button>
 
         {publishError && (
