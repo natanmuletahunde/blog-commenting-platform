@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 
-// 🧠 Cloudinary Configuration using environment variables
+// Cloudinary Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 📤 POST /api/upload
 export async function POST(req) {
   try {
     const formData = await req.formData();
@@ -24,12 +23,11 @@ export async function POST(req) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload the image to Cloudinary
     const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
-            folder: 'nextjs_uploads', // optional folder name in Cloudinary
+            folder: 'nextjs_uploads',
             resource_type: 'image',
           },
           (error, result) => {

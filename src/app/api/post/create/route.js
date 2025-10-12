@@ -1,6 +1,7 @@
 import Post from '../../../../lib/models/post.model.js';
 import { connect } from '../../../../lib/mongodb/mongoose.js';
 import { currentUser } from '@clerk/nextjs/server';
+
 export const POST = async (req) => {
   const user = await currentUser();
   try {
@@ -16,20 +17,24 @@ export const POST = async (req) => {
         status: 401,
       });
     }
+
     const slug = data.title
       .split(' ')
       .join('-')
       .toLowerCase()
       .replace(/[^a-zA-Z0-9-]/g, '');
+
     const newPost = await Post.create({
       userId: user.publicMetadata.userMongoId,
       content: data.content,
       title: data.title,
-      image: data.image,
+      image: data.image, // directly from Cloudinary
       category: data.category,
       slug,
     });
+
     await newPost.save();
+
     return new Response(JSON.stringify(newPost), {
       status: 200,
     });
