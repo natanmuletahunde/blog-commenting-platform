@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Piv Blog – Next.js Blogging & Commenting Platform
+
+This is a **Next.js** project built for creating, managing, and reading blog posts with commenting functionality. It includes **user authentication**, **admin controls**, **image uploads via Cloudinary**, **rich text editor**, and **commenting system**.
+
+---
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Demo
+
+> Add your live demo link here once deployed(vercel)[blog-comment-platform-9tq9.vercel.app
+]
+
+---
+
+## Features
+
+### User Features
+- Browse all blog posts
+- Read detailed post pages
+- Comment on posts
+- Search posts by title or content
+- Light/Dark mode toggle
+- Responsive design for desktop and mobile
+
+### Admin Features
+- Create, update, and delete posts
+- Upload post images via Cloudinary
+- Rich text content editor (React Quill)
+- View all users (optional)
+- Moderate comments
+
+### Additional Features
+- Real-time commenting system
+- Optimized images and fonts
+- Tailwind CSS for modern styling
+- Clerk authentication for users
+
+---
+
+## Tech Stack
+
+- **Frontend & Backend:** Next.js (App Router)
+- **Authentication:** Clerk Auth
+- **Database:** MongoDB
+- **ORM:** Mongoose
+- **Styling:** Tailwind CSS, Tailwind Animate
+- **Rich Text Editor:** React Quill
+- **Icons:** React Icons
+- **Hosting/Deployment:** Vercel
+- **Cloud Storage:** Cloudinary for images
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository:
 
 ```bash
-npm run dev
+git clone https://github.com/your-username/piv-blog.git
+cd piv-blog
+Install dependencies:
+npm install
 # or
-yarn dev
+yarn
 # or
-pnpm dev
-# or
-bun dev
-```
+pnpm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  \Project Structure
+piv-blog/
+│
+├─ app/                    # Next.js App Router pages and layouts
+│   ├─ dashboard/          # Admin dashboard pages
+│   ├─ post/               # Post detail pages
+│   └─ globals.css         # Global styles
+│
+├─ components/             # Reusable UI components
+│   ├─ Header.jsx
+│   ├─ Footer.jsx
+│   ├─ DashSidebar.jsx
+│   ├─ PostCard.jsx
+│   └─ ...
+│
+├─ lib/                    # Database models & utilities
+│   ├─ models/post.model.js
+│   ├─ models/comment.model.js
+│   └─ mongodb/mongoose.js
+│
+├─ pages/api/              # API routes
+│   ├─ post/
+│   │   ├─ create.js
+│   │   ├─ update.js
+│   │   ├─ delete.js
+│   │   └─ get.js
+│   └─ upload.js           # Cloudinary file upload
+│
+├─ public/                 # Static assets
+│
+├─ package.json
+└─ tailwind.config.js
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Environment Variables
+MONGODB_URI=your_mongodb_connection_string
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
+CLERK_API_KEY=your_clerk_api_key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Usage
+Admin Actions
 
-## Learn More
+Sign in via Clerk
 
-To learn more about Next.js, take a look at the following resources:
+Navigate to /dashboard
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a new post using Title, Category, Image Upload, and Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Edit or delete existing posts
 
-## Deploy on Vercel
+Moderate comments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+User Actions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sign up or sign in
+
+Browse posts on the homepage
+
+Read full posts
+
+Add comments on any post
+
+Deployment
+
+The recommended deployment platform is Vercel:
+
+Push your repository to GitHub.
+
+Import the project on Vercel
