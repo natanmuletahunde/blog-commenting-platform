@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -13,9 +13,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Header = () => {
   const path = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme(); // 🔹 useTheme here
   const router = useRouter();
-  const [mounted, setMounted] = useState(false); // ✅ mounted check
+  const [mounted, setMounted] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const searchParams = useSearchParams();
 
@@ -27,7 +27,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setMounted(true); // ✅ mark mounted after client-side render
+    setMounted(true); // mark mounted for client-side only rendering
     const urlParams = new URLSearchParams(searchParams);
     const searchTermFromUrl = urlParams.get("searchTerm");
     if (searchTermFromUrl) setSearchTerm(searchTermFromUrl);
@@ -94,24 +94,20 @@ const Header = () => {
           </Button>
 
           {/* Theme Toggle */}
-          {mounted && ( // ✅ only render after mounted
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() =>
-                setTheme(resolvedTheme === "light" ? "dark" : "light")
-              }
-            >
-              {resolvedTheme === "light" ? <FaSun /> : <FaMoon />}
-            </Button>
-          )}
+          {mounted && (
+  <Button
+    variant="ghost"
+    size="icon"
+    onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+  >
+    {theme === "light" ? <FaSun /> : <FaMoon />}
+  </Button>
+)}
+
 
           {/* Auth Buttons */}
           <SignedIn>
-            <UserButton
-              afterSignOutUrl="/"
-              userProfileUrl="/dashboard?tab=profile"
-            />
+            <UserButton afterSignOutUrl="/" userProfileUrl="/dashboard?tab=profile" />
           </SignedIn>
 
           <SignedOut>

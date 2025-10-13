@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
 export default function ThemeCom({ children }) {
@@ -8,7 +7,7 @@ export default function ThemeCom({ children }) {
   if (!mounted) return null;
 
   return (
-    <div className="bg-white text-gray-700 dark:text-gray-200 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <div className="bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-200 min-h-screen transition-colors duration-300">
       {children}
     </div>
   );

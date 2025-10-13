@@ -63,20 +63,20 @@ export default function DashPosts() {
 
   if (!user?.publicMetadata?.isAdmin) {
     return (
-      <div className='flex flex-col items-center justify-center h-full w-full py-7'>
+      <div className='flex flex-col items-center justify-center h-full w-full py-7 bg-gradient-to-b from-blue-800 to-black text-white'>
         <h1 className='text-2xl font-semibold'>You are not an admin!</h1>
       </div>
     );
   }
 
   return (
-    <div className='min-h-screen p-8 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900'>
-      <h1 className='text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100 text-center'>
+    <div className='min-h-screen p-8 bg-gradient-to-br from-blue-900 via-blue-700 to-black text-white'>
+      <h1 className='text-3xl font-bold mb-6 text-center'>
         Posts Management
       </h1>
 
       {userPosts.length > 0 ? (
-        <div className='shadow-xl rounded-2xl overflow-hidden border dark:border-gray-700 bg-white dark:bg-gray-800 max-w-6xl mx-auto'>
+        <div className='shadow-xl rounded-2xl overflow-hidden border border-gray-700 bg-gray-900 max-w-6xl mx-auto'>
           <Table>
             <TableHeader>
               <TableRow>
@@ -90,26 +90,31 @@ export default function DashPosts() {
             </TableHeader>
             <TableBody>
               {userPosts.map((post) => (
-                <TableRow key={post._id} className='hover:bg-purple-50 dark:hover:bg-purple-800 transition-colors'>
+                <TableRow
+                  key={post._id}
+                  className='hover:bg-blue-800 transition-colors'
+                >
                   <TableCell>{new Date(post.updatedAt).toLocaleDateString()}</TableCell>
                   <TableCell>
                     <Link href={`/post/${post.slug}`}>
                       <img
                         src={post.image}
                         alt={post.title}
-                        className='w-24 h-14 object-cover rounded-lg border border-purple-200 dark:border-purple-700'
+                        className='w-24 h-14 object-cover rounded-lg border border-blue-600'
                       />
                     </Link>
                   </TableCell>
                   <TableCell>
                     <Link
-                      className='font-semibold text-gray-900 dark:text-gray-100 hover:underline'
+                      className='font-semibold text-white hover:underline'
                       href={`/post/${post.slug}`}
                     >
                       {post.title}
                     </Link>
                   </TableCell>
-                  <TableCell className='text-purple-600 dark:text-purple-300 font-medium'>{post.category}</TableCell>
+                  <TableCell className='text-blue-400 font-medium'>
+                    {post.category}
+                  </TableCell>
                   <TableCell>
                     <span
                       className='font-medium text-red-500 hover:underline cursor-pointer'
@@ -123,7 +128,7 @@ export default function DashPosts() {
                   </TableCell>
                   <TableCell>
                     <Link
-                      className='text-teal-500 hover:underline font-medium'
+                      className='text-teal-400 hover:underline font-medium'
                       href={`/dashboard/update-post/${post._id}`}
                     >
                       Edit
@@ -135,15 +140,15 @@ export default function DashPosts() {
           </Table>
         </div>
       ) : (
-        <p className='text-center mt-10 text-gray-500 dark:text-gray-300 text-lg'>
+        <p className='text-center mt-10 text-blue-200 text-lg'>
           You have no posts yet!
         </p>
       )}
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <div className='text-center p-4'>
-          <HiOutlineExclamationCircle className='h-16 w-16 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
-          <h3 className='mb-5 text-lg text-gray-600 dark:text-gray-300 font-medium'>
+        <div className='text-center p-4 bg-gray-900 text-white rounded-lg'>
+          <HiOutlineExclamationCircle className='h-16 w-16 text-red-400 mb-4 mx-auto' />
+          <h3 className='mb-5 text-lg font-medium'>
             Are you sure you want to delete this post?
           </h3>
           <div className='flex justify-center gap-4'>

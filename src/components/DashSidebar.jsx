@@ -36,6 +36,16 @@ export default function DashSidebar() {
 
   return (
     <div className="w-full md:w-56 bg-white dark:bg-gray-900 h-screen shadow-md flex flex-col p-4">
+      {/* Sign Out Button at the top */}
+      <div className="mb-4">
+        <SignOutButton>
+          <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-normal w-full">
+            <HiArrowSmRight className="w-5 h-5" />
+            <span>Sign Out</span>
+          </button>
+        </SignOutButton>
+      </div>
+
       <nav className="flex-1 flex flex-col gap-2">
         {links.map((link) => (
           <Link
@@ -43,8 +53,8 @@ export default function DashSidebar() {
             href={link.href}
             className={`flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 ${
               tab === link.key || (!tab && link.key === 'dash')
-                ? 'bg-gray-200 dark:bg-gray-700 font-semibold'
-                : 'font-normal'
+                ? 'bg-gray-200 dark:bg-gray-700 font-semibold text-gray-800 dark:text-gray-200'
+                : 'font-normal text-gray-800 dark:text-gray-200'
             }`}
           >
             <link.icon className="w-5 h-5" />
@@ -52,15 +62,6 @@ export default function DashSidebar() {
           </Link>
         ))}
       </nav>
-
-      <div className="mt-auto">
-        <SignOutButton>
-          <button className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-red-500">
-            <HiArrowSmRight className="w-5 h-5" />
-            <span>Sign Out</span>
-          </button>
-        </SignOutButton>
-      </div>
     </div>
   );
 }
