@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -9,17 +9,29 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "next-themes";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Header = () => {
   const path = usePathname();
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchTerm);
+    const urlParams = new URLSearchParams(searchParams);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    router.push(`/search?${searchQuery}`);
   };
-
+  useEffect(() => {
+    const urlParams = new URLSearchParams(searchParams);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [searchParams]);
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-3 md:py-4 gap-4">
@@ -48,8 +60,6 @@ const Header = () => {
             />
           </form>
         </div>
-
-        {/* NAV LINKS */}
         <nav className="hidden md:flex items-center justify-center gap-6 flex-1">
           {[
             { name: "Home", href: "/" },
