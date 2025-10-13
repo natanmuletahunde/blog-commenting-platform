@@ -3,7 +3,13 @@
 import { useUser } from '@clerk/nextjs';
 import { Alert } from '@/components/ui/alert';
 import { FileInput } from '@/components/ui/file-input';
-import { Select } from '@/components/ui/select';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 import { Input as TextInput } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -112,19 +118,20 @@ export default function CreatePostPage() {
 
           {/* Updated Category Dropdown */}
           <Select
-            className="flex-1 cursor-pointer border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-400 focus:border-teal-400"
-            value={formData.category || 'uncategorized'}
-            onChange={(e) =>
-              setFormData(prev => ({ ...prev, category: e.target.value }))
-            }
-          >
-            <option value="uncategorized" disabled>
-              Select a category
-            </option>
-            <option value="javascript">JavaScript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
-          </Select>
+  onValueChange={(value) =>
+    setFormData((prev) => ({ ...prev, category: value }))
+  }
+>
+  <SelectTrigger className="w-[200px] cursor-pointer bg-slate-900 border border-slate-700 rounded-md px-3 py-2 text-sm text-white focus:ring-2 focus:ring-teal-500">
+    <SelectValue placeholder="Select a category" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="javascript">JavaScript</SelectItem>
+    <SelectItem value="reactjs">React.js</SelectItem>
+    <SelectItem value="nextjs">Next.js</SelectItem>
+  </SelectContent>
+</Select>
+
         </div>
 
         {/* Image Upload */}
