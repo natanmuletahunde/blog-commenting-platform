@@ -1,15 +1,17 @@
+"use client";
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
+// 🎨 Button Variants
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-60 active:scale-[0.98] shadow-md hover:shadow-lg [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -30,27 +32,37 @@ const buttonVariants = cva(
       outline: {
         true: "border-2 border-current bg-transparent hover:bg-opacity-10 hover:shadow-md",
       },
+      pill: {
+        true: "rounded-full",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
       outline: false,
+      pill: false,
     },
   }
 );
 
+// 🧩 Button Component
 const Button = React.forwardRef(
-  ({ className, variant, size, outline, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, outline, pill, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+
+    // Remove `pill` so it's not passed to the DOM
+    const { pill: _pill, ...restProps } = props;
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, outline, className }))}
         ref={ref}
-        {...props}
+        className={cn(buttonVariants({ variant, size, outline, pill, className }))}
+        {...restProps}
       />
     );
   }
 );
+
 Button.displayName = "Button";
 
 export { Button, buttonVariants };

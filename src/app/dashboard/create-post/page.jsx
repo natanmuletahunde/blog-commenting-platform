@@ -27,8 +27,6 @@ export default function CreatePostPage() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
   const router = useRouter();
-
-  // 🔹 Upload image immediately on file selection
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
@@ -58,8 +56,6 @@ export default function CreatePostPage() {
       setImageUploading(false);
     }
   };
-
-  // 🔹 Submit post
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
