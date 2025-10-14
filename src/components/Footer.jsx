@@ -111,7 +111,7 @@ export default function FooterCom() {
             </div>
 
             {/* Newsletter */}
-            <div>
+            {/* <div>
               <h3 className="text-sm font-semibold text-foreground mb-3">
                 Newsletter
               </h3>
@@ -128,7 +128,7 @@ export default function FooterCom() {
                   Subscribe
                 </Button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

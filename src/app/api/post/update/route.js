@@ -8,17 +8,21 @@ export const PUT = async (req) => {
     await connect();
     const data = await req.json();
 
-    if (
-      !user ||
-      user.publicMetadata.userMongoId !== data.userMongoId ||
-      user.publicMetadata.isAdmin !== true
-    ) {
-      return new Response('Unauthorized', {
-        status: 401,
-      });
+    if (!user) {
+      return new Response('Unauthorized', { status: 401 });
     }
 
-    const newPost = await Post.findByIdAndUpdate(
+    const post = await Post.findById(data.postId);
+    if (!post) {
+      return new Response('Post not found', { status: 404 });
+    }
+
+    const authorId = user.publicMetadata?.userMongoId || user.id;
+    if (String(post.userId) !== String(authorId)) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
       data.postId,
       {
         $set: {
@@ -31,12 +35,12 @@ export const PUT = async (req) => {
       { new: true }
     );
 
-    return new Response(JSON.stringify(newPost), {
+    return new Response(JSON.stringify(updatedPost), {
       status: 200,
     });
   } catch (error) {
-    console.log('Error creating post:', error);
-    return new Response('Error creating post', {
+    console.log('Error updating post:', error);
+    return new Response('Error updating post', {
       status: 500,
     });
   }

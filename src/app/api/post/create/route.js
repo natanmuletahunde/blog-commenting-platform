@@ -8,14 +8,8 @@ export const POST = async (req) => {
     await connect();
     const data = await req.json();
 
-    if (
-      !user ||
-      user.publicMetadata.userMongoId !== data.userMongoId ||
-      user.publicMetadata.isAdmin !== true
-    ) {
-      return new Response('Unauthorized', {
-        status: 401,
-      });
+    if (!user) {
+      return new Response('Unauthorized', { status: 401 });
     }
 
     const slug = data.title
@@ -25,7 +19,7 @@ export const POST = async (req) => {
       .replace(/[^a-zA-Z0-9-]/g, '');
 
     const newPost = await Post.create({
-      userId: user.publicMetadata.userMongoId,
+      userId: user.publicMetadata?.userMongoId || user.id,
       content: data.content,
       title: data.title,
       image: data.image, // directly from Cloudinary

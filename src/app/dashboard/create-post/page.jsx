@@ -4,12 +4,12 @@ import { useUser } from '@clerk/nextjs';
 import { Alert } from '@/components/ui/alert';
 import { FileInput } from '@/components/ui/file-input';
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input as TextInput } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -27,6 +27,7 @@ export default function CreatePostPage() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
   const router = useRouter();
+
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
@@ -43,7 +44,7 @@ export default function CreatePostPage() {
 
       const data = await res.json();
       if (data.imageUrl) {
-        setFormData(prev => ({ ...prev, image: data.imageUrl }));
+        setFormData((prev) => ({ ...prev, image: data.imageUrl }));
         setImageUploadError(null);
       } else {
         setImageUploadError('Upload failed');
@@ -56,6 +57,7 @@ export default function CreatePostPage() {
       setImageUploading(false);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -64,7 +66,7 @@ export default function CreatePostPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          userMongoId: user.publicMetadata.userMongoId,
+          userMongoId: user.publicMetadata?.userMongoId || user.id,
         }),
       });
 
@@ -84,99 +86,80 @@ export default function CreatePostPage() {
 
   if (!isLoaded) return null;
 
-  if (!(isSignedIn && user.publicMetadata.isAdmin)) {
+  if (!isSignedIn) {
     return (
-      <h1 className="text-center text-3xl my-7 font-semibold">
-        You are not authorized to view this page
+      <h1 className='text-center text-3xl my-7 font-semibold'>
+        Please sign in to create a post
       </h1>
     );
   }
 
   return (
-    <div className="p-3 max-w-3xl mx-auto min-h-screen">
-      <h1 className="text-center text-3xl my-7 font-semibold">
-        Create a Post
-      </h1>
+    <div className='p-3 max-w-3xl mx-auto min-h-screen'>
+      <h1 className='text-center text-3xl my-7 font-semibold'>Create a Post</h1>
 
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        {/* Title & Category */}
-        <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+        <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           <TextInput
-            type="text"
-            placeholder="Title"
+            type='text'
+            placeholder='Title'
             required
-            id="title"
-            className="flex-1"
+            id='title'
+            className='flex-1'
             onChange={(e) =>
-              setFormData(prev => ({ ...prev, title: e.target.value }))
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
           />
 
-          {/* Updated Category Dropdown */}
           <Select
-  onValueChange={(value) =>
-    setFormData((prev) => ({ ...prev, category: value }))
-  }
->
-  <SelectTrigger className="w-[200px] cursor-pointer bg-slate-900 border border-slate-700 rounded-md px-3 py-2 text-sm text-white focus:ring-2 focus:ring-teal-500">
-    <SelectValue placeholder="Select a category" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="javascript">JavaScript</SelectItem>
-    <SelectItem value="reactjs">React.js</SelectItem>
-    <SelectItem value="nextjs">Next.js</SelectItem>
-  </SelectContent>
-</Select>
-
+            onValueChange={(value) =>
+              setFormData((prev) => ({ ...prev, category: value }))
+            }
+          >
+            <SelectTrigger className='w-[200px] cursor-pointer bg-slate-900 border border-slate-700 rounded-md px-3 py-2 text-sm text-white focus:ring-2 focus:ring-teal-500'>
+              <SelectValue placeholder='Select a category' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='javascript'>JavaScript</SelectItem>
+              <SelectItem value='reactjs'>React.js</SelectItem>
+              <SelectItem value='nextjs'>Next.js</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        {/* Image Upload */}
-        <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
-          <FileInput
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
+        <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
+          <FileInput type='file' accept='image/*' onChange={handleFileChange} />
         </div>
 
-        {/* Upload Errors */}
-        {imageUploadError && (
-          <Alert variant="destructive">{imageUploadError}</Alert>
-        )}
+        {imageUploadError && <Alert variant='destructive'>{imageUploadError}</Alert>}
 
-        {/* Uploaded Image Preview */}
         {formData.image && (
-          <div className="w-full h-72 overflow-hidden border rounded-md">
+          <div className='w-full h-72 overflow-hidden border rounded-md'>
             <img
               src={formData.image}
-              alt="upload"
-              className="w-full h-full object-contain"
+              alt='upload'
+              className='w-full h-full object-contain'
             />
           </div>
         )}
 
-        {/* Content Editor */}
         <ReactQuill
-          theme="snow"
-          placeholder="Write something amazing..."
-          className="h-72 mb-12"
+          theme='snow'
+          placeholder='Write something amazing...'
+          className='h-72 mb-12'
           required
-          onChange={(value) =>
-            setFormData(prev => ({ ...prev, content: value }))
-          }
+          onChange={(value) => setFormData((prev) => ({ ...prev, content: value }))}
         />
 
         <Button
-          type="submit"
-          className="bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold py-3 rounded-xl shadow-lg hover:from-blue-500 hover:to-teal-500 transition-all duration-300"
+          type='submit'
+          className='bg-gradient-to-r from-teal-500 to-blue-500 text-white font-bold py-3 rounded-xl shadow-lg hover:from-blue-500 hover:to-teal-500 transition-all duration-300'
           disabled={imageUploading}
         >
           {imageUploading ? 'Uploading Image...' : 'Publish Post'}
         </Button>
 
-        {publishError && (
-          <Alert variant="destructive">{publishError}</Alert>
-        )}
+        {publishError && <Alert variant='destructive'>{publishError}</Alert>}
       </form>
     </div>
   );
