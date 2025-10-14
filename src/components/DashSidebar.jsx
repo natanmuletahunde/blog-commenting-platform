@@ -25,18 +25,15 @@ export default function DashSidebar() {
 
   if (!isSignedIn) return null;
 
-  const isAdmin = user?.publicMetadata?.isAdmin;
-
   const links = [
-    isAdmin && { name: 'Dashboard', icon: HiChartPie, href: '/dashboard?tab=dash', key: 'dash' },
+    { name: 'Dashboard', icon: HiChartPie, href: '/dashboard?tab=dash', key: 'dash' },
     { name: 'Profile', icon: HiUser, href: '/dashboard?tab=profile', key: 'profile' },
-    isAdmin && { name: 'Posts', icon: HiDocumentText, href: '/dashboard?tab=posts', key: 'posts' },
-    isAdmin && { name: 'Users', icon: HiOutlineUserGroup, href: '/dashboard?tab=users', key: 'users' },
-  ].filter(Boolean); // remove false entries
+    { name: 'Posts', icon: HiDocumentText, href: '/dashboard?tab=posts', key: 'posts' },
+    { name: 'Users', icon: HiOutlineUserGroup, href: '/dashboard?tab=users', key: 'users' },
+  ];
 
   return (
     <div className="w-full md:w-56 bg-white dark:bg-gray-900 h-screen shadow-md flex flex-col p-4">
-      {/* Sign Out Button at the top */}
       <div className="mb-4">
         <SignOutButton>
           <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-normal w-full">
@@ -58,7 +55,7 @@ export default function DashSidebar() {
             }`}
           >
             <link.icon className="w-5 h-5" />
-            <span>{link.key === 'profile' ? (isAdmin ? 'Admin' : 'User') : link.name}</span>
+            <span>{link.name}</span>
           </Link>
         ))}
       </nav>

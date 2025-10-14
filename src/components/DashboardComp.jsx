@@ -12,11 +12,10 @@ import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  TableCell,
 } from '@/components/ui/table';
 
 export default function DashboardComp() {
@@ -33,14 +32,9 @@ export default function DashboardComp() {
       try {
         const res = await fetch('/api/user/get', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            limit: 5,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ limit: 5 }),
         });
-
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -56,12 +50,8 @@ export default function DashboardComp() {
       try {
         const res = await fetch('/api/post/get', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            limit: 5,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ limit: 5 }),
         });
         const data = await res.json();
         if (res.ok) {
@@ -74,10 +64,8 @@ export default function DashboardComp() {
       }
     };
 
-    if (user?.publicMetadata?.isAdmin) {
-      fetchUsers();
-      fetchPosts();
-    }
+    fetchUsers();
+    fetchPosts();
   }, [user]);
 
   return (
@@ -137,19 +125,18 @@ export default function DashboardComp() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users &&
-                users.map((user) => (
-                  <TableRow key={user._id}>
-                    <TableCell>
-                      <img
-                        src={user.profilePicture}
-                        alt="user"
-                        className="w-10 h-10 rounded-full bg-gray-500"
-                      />
-                    </TableCell>
-                    <TableCell>{user.username}</TableCell>
-                  </TableRow>
-                ))}
+              {users.map((u) => (
+                <TableRow key={u._id}>
+                  <TableCell>
+                    <img
+                      src={u.profilePicture}
+                      alt="user"
+                      className="w-10 h-10 rounded-full bg-gray-500"
+                    />
+                  </TableCell>
+                  <TableCell>{u.username}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
@@ -171,20 +158,19 @@ export default function DashboardComp() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {posts &&
-                posts.map((post) => (
-                  <TableRow key={post._id}>
-                    <TableCell>
-                      <img
-                        src={post.image}
-                        alt="post"
-                        className="w-14 h-10 rounded-md bg-gray-500"
-                      />
-                    </TableCell>
-                    <TableCell className="w-96">{post.title}</TableCell>
-                    <TableCell className="w-5">{post.category}</TableCell>
-                  </TableRow>
-                ))}
+              {posts.map((post) => (
+                <TableRow key={post._id}>
+                  <TableCell>
+                    <img
+                      src={post.image}
+                      alt="post"
+                      className="w-14 h-10 rounded-md bg-gray-500"
+                    />
+                  </TableCell>
+                  <TableCell>{post.title}</TableCell>
+                  <TableCell>{post.category}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>

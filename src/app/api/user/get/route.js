@@ -9,7 +9,7 @@ export const POST = async (req) => {
     await connect();
     const data = await req.json();
 
-    // ✅ Removed the admin-only restriction
+    // Allow any authenticated user
     if (!user) {
       return new Response('Unauthorized', { status: 401 });
     }
@@ -18,6 +18,7 @@ export const POST = async (req) => {
     const limit = parseInt(data.limit) || 9;
     const sortDirection = data.sort === 'asc' ? 1 : -1;
 
+    // ✅ Fetch all users (no admin restriction)
     const users = await User.find()
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
@@ -25,6 +26,7 @@ export const POST = async (req) => {
 
     const totalUsers = await User.countDocuments();
 
+    // ✅ Count users from the past month
     const now = new Date();
     const oneMonthAgo = new Date(
       now.getFullYear(),
@@ -36,6 +38,7 @@ export const POST = async (req) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
+    // ✅ Return users and stats
     return new Response(
       JSON.stringify({ users, totalUsers, lastMonthUsers }),
       { status: 200 }

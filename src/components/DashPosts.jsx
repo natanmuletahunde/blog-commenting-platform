@@ -37,8 +37,8 @@ export default function DashPosts() {
         console.log(error.message);
       }
     };
-    if (user?.publicMetadata?.isAdmin) fetchPosts();
-  }, [user?.publicMetadata?.isAdmin, user?.publicMetadata?.userMongoId]);
+    fetchPosts();
+  }, [user?.publicMetadata?.userMongoId]);
 
   const handleDeletePost = async () => {
     setShowModal(false);
@@ -61,19 +61,9 @@ export default function DashPosts() {
     }
   };
 
-  if (!user?.publicMetadata?.isAdmin) {
-    return (
-      <div className='flex flex-col items-center justify-center h-full w-full py-7 bg-gradient-to-b from-blue-800 to-black text-white'>
-        <h1 className='text-2xl font-semibold'>You are not an admin!</h1>
-      </div>
-    );
-  }
-
   return (
     <div className='min-h-screen p-8 bg-gradient-to-br from-blue-900 via-blue-700 to-black text-white'>
-      <h1 className='text-3xl font-bold mb-6 text-center'>
-        Posts Management
-      </h1>
+      <h1 className='text-3xl font-bold mb-6 text-center'>Your Posts</h1>
 
       {userPosts.length > 0 ? (
         <div className='shadow-xl rounded-2xl overflow-hidden border border-gray-700 bg-gray-900 max-w-6xl mx-auto'>
@@ -90,10 +80,7 @@ export default function DashPosts() {
             </TableHeader>
             <TableBody>
               {userPosts.map((post) => (
-                <TableRow
-                  key={post._id}
-                  className='hover:bg-blue-800 transition-colors'
-                >
+                <TableRow key={post._id} className='hover:bg-blue-800 transition-colors'>
                   <TableCell>{new Date(post.updatedAt).toLocaleDateString()}</TableCell>
                   <TableCell>
                     <Link href={`/post/${post.slug}`}>

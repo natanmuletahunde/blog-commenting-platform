@@ -10,10 +10,10 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from '@/components/ui/table'; // import from your shadcn table component
+} from '@/components/ui/table';
 
 export default function DashUsers() {
-  const { user, isLoaded } = useUser();
+  const { user } = useUser();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -21,9 +21,7 @@ export default function DashUsers() {
       try {
         const res = await fetch('/api/user/get', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             userMongoId: user?.publicMetadata?.userMongoId,
           }),
@@ -36,23 +34,12 @@ export default function DashUsers() {
         console.log(error.message);
       }
     };
-
-    if (user?.publicMetadata?.isAdmin) {
-      fetchUsers();
-    }
-  }, [user?.publicMetadata?.isAdmin]);
-
-  if (!user?.publicMetadata?.isAdmin && isLoaded) {
-    return (
-      <div className='flex flex-col items-center justify-center h-full w-full py-7'>
-        <h1 className='text-2xl font-semibold'>You are not an admin!</h1>
-      </div>
-    );
-  }
+    fetchUsers();
+  }, [user?.publicMetadata?.userMongoId]);
 
   return (
     <div className='overflow-x-auto md:mx-auto p-3'>
-      {user?.publicMetadata?.isAdmin && users.length > 0 ? (
+      {users.length > 0 ? (
         <Table>
           <TableHeader>
             <TableRow>
@@ -66,9 +53,7 @@ export default function DashUsers() {
           <TableBody>
             {users.map((u) => (
               <TableRow key={u._id}>
-                <TableCell>
-                  {new Date(u.createdAt).toLocaleDateString()}
-                </TableCell>
+                <TableCell>{new Date(u.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>
                   <img
                     src={u.profilePicture}
