@@ -84,6 +84,14 @@ const Header = () => {
               )}
             </Link>
           ))}
+
+          {/* 🔹 Create Post Button */}
+          <Link href="/dashboard/create-post">
+  <Button className="bg-gradient-to-r from-purple-600 to-blue-500 text-white text-sm font-semibold hover:opacity-90 transition ml-4">
+    Create Post
+  </Button>
+</Link>
+
         </nav>
 
         {/* RIGHT ACTIONS */}
@@ -95,15 +103,14 @@ const Header = () => {
 
           {/* Theme Toggle */}
           {mounted && (
-  <Button
-    variant="ghost"
-    size="icon"
-    onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-  >
-    {theme === "light" ? <FaSun /> : <FaMoon />}
-  </Button>
-)}
-
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              {theme === "light" ? <FaSun /> : <FaMoon />}
+            </Button>
+          )}
 
           {/* Auth Buttons */}
           <SignedIn>

@@ -61,11 +61,7 @@ export default function FooterCom() {
       </Link>
     </li>
   </ul>
-</div>
-
-
-            {/* Follow Us */}
-            <div>
+</div>            <div>
               <h3 className="text-sm font-semibold text-foreground mb-3">
                 Follow us
               </h3>
@@ -90,8 +86,6 @@ export default function FooterCom() {
                 </li>
               </ul>
             </div>
-
-            {/* Contact */}
             <div>
               <h3 className="text-sm font-semibold text-foreground mb-3">
                 Contact
@@ -109,26 +103,6 @@ export default function FooterCom() {
                 </li>
               </ul>
             </div>
-
-            {/* Newsletter */}
-            {/* <div>
-              <h3 className="text-sm font-semibold text-foreground mb-3">
-                Newsletter
-              </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                Stay updated with our latest posts.
-              </p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="px-3 py-2 w-full text-sm rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <Button size="sm" variant="gradientDuoTone">
-                  Subscribe
-                </Button>
-              </div>
-            </div> */}
           </div>
         </div>
 
