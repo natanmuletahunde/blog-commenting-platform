@@ -96,7 +96,7 @@ export default function FooterCom() {
                     href="natanmuleta77@gmail.com"
                     className="hover:text-primary transition-colors flex items-center gap-2"
                   >
-                    <Mail className="w-4 h-4" />email                  </Link>
+                    <Mail className="w-4 h-4" />natanmuleta77@gmail.com   </Link>
                 </li>
                 <li>
                   <p>0954913498</p>
