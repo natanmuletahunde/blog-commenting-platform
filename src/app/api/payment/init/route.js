@@ -1,46 +1,63 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
     const CHAPA_SECRET = process.env.CHAPA_SECRET_KEY;
-    const BASE_URL = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+    const BASE_URL = process.env.URL || "http://localhost:3000"; // 👈 fallback to localhost
 
-    const tx_ref = 'tx-' + Date.now();
+    const tx_ref = "tx-" + Date.now();
 
     const chapaData = {
-      amount: '200',
-      currency: 'ETB',
-      email: 'natanmuleta77@gmail.com', // ✅ must be a valid email
-      first_name: 'natan',
-      last_name: 'muleta',
+      amount: "200",
+      currency: "ETB",
+      email: "natanmuleta77@gmail.com",
+      first_name: "Natan",
+      last_name: "Muleta",
       tx_ref,
       callback_url: `${BASE_URL}/api/payment/verify?tx_ref=${tx_ref}`,
       return_url: `${BASE_URL}/payment/success?tx_ref=${tx_ref}`,
       customization: {
-        title: 'UpgradePlan ',
-        description: 'Unlock premium projects',
+        title: "Upgrade Plan",
+        description: "Unlock premium projects",
       },
     };
 
-    const res = await fetch('https://api.chapa.co/v1/transaction/initialize', {
-      method: 'POST',
+    const res = await fetch("https://api.chapa.co/v1/transaction/initialize", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${CHAPA_SECRET}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(chapaData),
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    console.log("🔍 Raw Chapa Response:", text);
 
-    if (data.status === 'success') {
-      return NextResponse.json({ checkout_url: data.data.checkout_url });
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      console.error("❌ JSON parse error:", err);
+      return NextResponse.json(
+        { error: "Invalid JSON from Chapa", raw: text },
+        { status: 500 }
+      );
     }
 
-    console.error('Chapa Init Error:', data);
-    return NextResponse.json({ error: 'Payment init failed', details: data }, { status: 400 });
-  } catch (err) {
-    console.error('Payment Init Error:', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    // ✅ Check for Chapa checkout URL
+    if (!data?.data?.checkout_url) {
+      console.error("❌ Missing checkout URL in Chapa response:", data);
+      return NextResponse.json(
+        { error: "Chapa did not return checkout URL", raw: data },
+        { status: 500 }
+      );
+    }
+
+    // ✅ Return only checkout_url to frontend
+    return NextResponse.json({ checkout_url: data.data.checkout_url });
+  } catch (error) {
+    console.error("❌ Payment Init Error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

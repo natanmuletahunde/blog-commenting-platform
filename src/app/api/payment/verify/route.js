@@ -7,7 +7,7 @@ export async function GET(request) {
   try {
     const res = await fetch(`https://api.chapa.co/v1/transaction/verify/${tx_ref}`, {
       headers: {
-        'Authorization': `Bearer ${process.env.CHAPA_SECRET_KEY}`,
+        Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
       },
     });
 
@@ -18,10 +18,10 @@ export async function GET(request) {
       // Example: await Users.updateOne({ email }, { isPremium: true });
 
       console.log('Payment verified ✅');
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/upgrade-success`);
+      return NextResponse.redirect(`${process.env.URL}/upgrade-success`); // 👈 uses your URL env
     } else {
       console.log('Payment verification failed ❌');
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_URL}/upgrade-failed`);
+      return NextResponse.redirect(`${process.env.URL}/upgrade-failed`); // 👈 uses your URL env
     }
   } catch (err) {
     console.error('Error verifying payment:', err);
