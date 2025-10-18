@@ -23,11 +23,9 @@ export default function Dashboard() {
   return (
     <div className='min-h-screen flex flex-col md:flex-row'>
       <div className='md:w-56'>
-        {/* Sidebar */}
         <DashSidebar />
       </div>
 
-      {/* Show all dashboard sections for any logged-in user */}
       {tab === 'profile' && <DashProfile />}
       {tab === 'posts' && <DashPosts />}
       {tab === 'users' && <DashUsers />}

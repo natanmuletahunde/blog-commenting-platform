@@ -109,14 +109,14 @@ export default function FooterCom() {
         {/* Divider */}
         <Separator className="my-6" />
 
-        {/* Bottom Section */}
+       
         <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           {/* Copyright */}
           <p className="text-sm text-muted-foreground text-center sm:text-left">
             © {year} Piv Blog. All rights reserved.
           </p>
 
-          {/* Social Icons */}
+
           <div className="flex justify-center sm:justify-end gap-5">
             <Button variant="ghost" size="icon" asChild>
               <Link href="#">

@@ -17,7 +17,7 @@ export async function POST() {
       callback_url: `${BASE_URL}/api/payment/verify?tx_ref=${tx_ref}`,
       return_url: `${BASE_URL}/payment/success?tx_ref=${tx_ref}`,
       customization: {
-        title: 'UpgradePlan ', // ✅ must be 16 chars max
+        title: 'UpgradePlan ',
         description: 'Unlock premium projects',
       },
     };
