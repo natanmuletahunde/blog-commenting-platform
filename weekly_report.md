@@ -1,21 +1,37 @@
-## weekly report - Blog + Commenting System
+# 📰 Blog + Commenting System  
 
-**Name:**  Natan Muleta
-**Project:**  Blog + Commenting System
-**Week:** Oct 10 , 2025
-**Advisor:** Elias
-**live demo**: (live)[https://blog-comment-platform-9tq9.vercel.app/]
-**git repo**:https://github.com/natanmuletahunde/blog-comment-platform.git
+**Developer:** Natan Muleta  
+**Week:** October 17, 2025  
+**Advisor:** Elias  
+**Live Demo:** [blog-comment-platform-9tq9.vercel.app](https://blog-comment-platform.vercel.app)  
+**GitHub Repository:** [github.com/natanmuletahunde/blog-comment-platform](https://github.com/natanmuletahunde/blog-comment-platform.git)  
 
-## what i accomplished this week 
+---
 
-# Authentication
-Added Clerk for user sign in/out.
-Linked Clerk with MongoDB using webhooks
-# Database
-Synced Clerk users to database automatically.
-# Frontend
-Built header with theme switch, search, and auth buttons.
-Added responsive design and smooth animations.
-Used Shadcn UI and Tailwind for clean styling.
-Deployed successfully on Vercel.
+## Project Overview  
+
+The Blog + Commenting System is a modern full-stack web application that allows users to create, read, and interact with blog posts through a secure and dynamic interface.  
+It features real-time commenting,user authentication and a clean UI built for scalability and engagement.
+
+---
+
+## What I Accomplished This Week  
+
+### Authentication  
+- Integrated **Clerk** for secure sign-in/sign-out.  
+- Configured **Clerk Webhooks** to sync user data automatically with MongoDB.  
+
+### Database Integration  
+- Established a **MongoDB** connection for storing users, blogs, and comments.  
+- Ensured **real-time data sync** between Clerk and the database.  
+
+### Frontend Development  
+- Built a **responsive header** with search, theme switcher, and auth buttons.  
+- Implemented **smooth transitions and modern UI** with Shadcn and Tailwind.  
+- Designed a **clean, minimalist layout** for blogs and comment threads.  
+
+### Deployment  
+- Deployed successfully on Vercel with environment variables and production settings.  
+
+
+

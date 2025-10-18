@@ -135,7 +135,7 @@ export default function FooterCom() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <Link
-                href="https://github.com/sahandghavidel"
+                href="https://github.com/natanmuletahunde"
                 target="_blank"
                 rel="noopener noreferrer"
               >
